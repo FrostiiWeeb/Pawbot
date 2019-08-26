@@ -4,7 +4,7 @@ requests==2.20.1
 dhooks==1.0.9
 aiohttp<3.5.0,>=3.3.0
 discord
-git+https://github.com/Rapptz/discord.py@rewrite
+git+https://github.com/Rapptz/discord.py
 psutil
 asyncio
 yarl<1.3

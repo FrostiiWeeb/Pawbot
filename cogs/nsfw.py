@@ -40,7 +40,7 @@ class NSFW(commands.Cog):
             r = await http.get(urltouse, res_method="json", no_cache=True)
         except json.JSONDecodeError:
             return await ctx.send("Couldn't find anything from the API")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             return await ctx.send(r[endpoint])
         embed = discord.Embed(colour=249_742)
         embed.set_image(url=r[endpoint])
@@ -53,7 +53,7 @@ class NSFW(commands.Cog):
     async def lewdneko(self, ctx):
         """Posts a lewd neko"""
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["nsfw"] is 0:
+        if rowcheck["nsfw"] == 0:
             return await ctx.send(";w; NSFW is disabled in the config...")
         await self.randomimageapi(ctx, "https://nekos.life/api/v2/img/lewd", "url")
 
@@ -64,7 +64,7 @@ class NSFW(commands.Cog):
     async def lewdfeet(self, ctx):
         """Posts a lewd foot image or gif"""
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["nsfw"] is 0:
+        if rowcheck["nsfw"] == 0:
             return await ctx.send(";w; NSFW is disabled in the config...")
         randomfoot = ["feet", "feetg"]
         await self.randomimageapi(
@@ -78,7 +78,7 @@ class NSFW(commands.Cog):
     async def lewdkemo(self, ctx):
         """Posts a lewd kemonomimi character"""
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["nsfw"] is 0:
+        if rowcheck["nsfw"] == 0:
             return await ctx.send(";w; NSFW is disabled in the config...")
         randomfox = ["holoero", "erokemo", "hololewd"]
         await self.randomimageapi(
@@ -93,7 +93,7 @@ class NSFW(commands.Cog):
     async def lewdanal(self, ctx):
         """Posts a lewd anal gif/picture"""
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["nsfw"] is 0:
+        if rowcheck["nsfw"] == 0:
             return await ctx.send(";w; NSFW is disabled in the config...")
         await self.randomimageapi(ctx, f"https://nekos.life/api/v2/img/anal", "url")
 
@@ -104,7 +104,7 @@ class NSFW(commands.Cog):
     async def e621(self, ctx, *args):
         """Searches e621 with given queries."""
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["nsfw"] is 0:
+        if rowcheck["nsfw"] == 0:
             return await ctx.send(";w; NSFW is disabled in the config...")
         if bannedtags in args:
             return ctx.send("Pls no")
@@ -142,7 +142,7 @@ class NSFW(commands.Cog):
     async def show(self, ctx, arg):
         """Show a post from e621/e926 with given post ID"""
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["nsfw"] is 0:
+        if rowcheck["nsfw"] == 0:
             return await ctx.send(";w; NSFW is disabled in the config...")
         msgtoedit = await ctx.send("Searching...")
         print("------")
@@ -170,7 +170,7 @@ class NSFW(commands.Cog):
     async def sofurry(self, ctx, *args):
         """Searches SoFurry with given queries."""
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["nsfw"] is 0:
+        if rowcheck["nsfw"] == 0:
             return await ctx.send(";w; NSFW is disabled in the config...")
         maxlevel = "2"
         if bannedtags in args:

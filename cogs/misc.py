@@ -17,12 +17,6 @@ processshowapi = eapi.processshowapi
 search = sfapi.search
 
 
-class ResultNotFound(Exception):
-    """Used if ResultNotFound is triggered by e* API."""
-
-    pass
-
-
 class InvalidHTTPResponse(Exception):
     """Used if non-200 HTTP Response got from server."""
 
@@ -216,7 +210,7 @@ class Misc(commands.Cog):
             )
         try:
             await eapi.processapi(apilink)
-        except ResultNotFound:
+        except eapi.ResultNotFound:
             await ctx.send("Result not found!")
             return
         except InvalidHTTPResponse:
@@ -930,8 +924,8 @@ class Misc(commands.Cog):
             tree = html.fromstring(page.content)
 
             for att in attributes:
-                id = str("Infobox-villager-" + att)
-                temp = str(tree.xpath('//td[@id="' + id + '"]//text()'))
+                villid = str("Infobox-villager-" + att)
+                temp = str(tree.xpath('//td[@id="' + villid + '"]//text()'))
                 if len(temp) > 2:
                     if att == "clothes":
                         temp = temp.replace("', '*', '", "\n")

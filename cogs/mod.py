@@ -627,14 +627,14 @@ class Moderation(commands.Cog):
         """ Moves a message id to another channel. """
         msgtodel = await ctx.channel.get_message(msgid)
         if msgtodel.attachments:
-            bytes = BytesIO()
-            await msgtodel.attachments[0].save(bytes)
+            iobytes = BytesIO()
+            await msgtodel.attachments[0].save(iobytes)
         await msgtodel.delete()
         await ctx.message.delete()
         if msgtodel.attachments:
             return await channel.send(
                 f"```\n{msgtodel.author}: {msgtodel.content}\n```",
-                file=discord.File(bytes, "attachment.png"),
+                file=discord.File(iobytes, "attachment.png"),
             )
         await channel.send(f"```\n{msgtodel.author}: {msgtodel.content}\n```")
 

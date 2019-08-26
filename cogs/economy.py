@@ -253,7 +253,7 @@ class Economy(commands.Cog):
             content=f"{msg.content}\nAnd you got a multiplier of {multiplier}!"
         )
         betresult = int(bet * multiplier)
-        if multiplier is 0:
+        if multiplier == 0:
             betresult = int(-bet)
         betresult = row["money"] + betresult
         query = "UPDATE userbal SET money = $1 WHERE userid = $2;"

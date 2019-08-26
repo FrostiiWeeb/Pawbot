@@ -31,6 +31,12 @@ async def send_cmd_help(ctx):
         await ctx.send(page)
 
 
+class ResultNotFound(Exception):
+    """Used if ResultNotFound is triggered by e* API."""
+
+    pass
+
+
 class Events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

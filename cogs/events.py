@@ -4,6 +4,7 @@ import traceback
 import psutil
 import os
 import random
+from utils import eapi
 
 from datetime import datetime
 from collections import deque
@@ -29,12 +30,6 @@ async def send_cmd_help(ctx):
 
     for page in _help:
         await ctx.send(page)
-
-
-class ResultNotFound(Exception):
-    """Used if ResultNotFound is triggered by e* API."""
-
-    pass
 
 
 class Events(commands.Cog):
@@ -139,8 +134,8 @@ class Events(commands.Cog):
         if isinstance(err, (errors.BadArgument, errors.MissingRequiredArgument)):
             await send_cmd_help(ctx)
 
-        elif isinstance(err, ResultNotFound):
-            return await ctx.send("Nothing was found!")
+        elif isinstance(err, eapi.ResultNotFound):
+            pass
 
         elif isinstance(err, errors.CommandInvokeError):
             err = err.original

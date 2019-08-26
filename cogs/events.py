@@ -134,11 +134,11 @@ class Events(commands.Cog):
         if isinstance(err, (errors.BadArgument, errors.MissingRequiredArgument)):
             await send_cmd_help(ctx)
 
-        elif isinstance(err, eapi.ResultNotFound):
-            pass
-
         elif isinstance(err, errors.CommandInvokeError):
             err = err.original
+
+            if err = eapi.ResultNotFound:
+                return await ctx.send("Nothing was found!")
 
             _traceback = traceback.format_tb(err.__traceback__)
             _traceback = "".join(_traceback)

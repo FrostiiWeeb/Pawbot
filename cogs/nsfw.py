@@ -12,12 +12,6 @@ processshowapi = eapi.processshowapi
 search = sfapi.search
 
 
-class InvalidHTTPResponse(Exception):
-    "Used if non-200 HTTP Response got from server."
-
-    pass
-
-
 class NSFW(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -154,7 +148,7 @@ class NSFW(commands.Cog):
         except eapi.ResultNotFound:
             await ctx.send("Result not found!")
             return
-        except InvalidHTTPResponse:
+        except eapi.InvalidHTTPResponse:
             await ctx.send(
                 "We're getting invalid response from the API, please try again later!"
             )

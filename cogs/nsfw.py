@@ -151,7 +151,7 @@ class NSFW(commands.Cog):
         apilink = "https://e621.net/post/show.json?id={arg}"
         try:
             await processshowapi(apilink)
-        except ResultNotFound:
+        except eapi.ResultNotFound:
             await ctx.send("Result not found!")
             return
         except InvalidHTTPResponse:

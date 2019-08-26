@@ -131,8 +131,7 @@ class NSFW(commands.Cog):
         try:
             await processapi(apilink)
         except ResultNotFound:
-            await ctx.send("Result not found!")
-            return
+            return await ctx.send("Result not found!")
         except InvalidHTTPResponse:
             await ctx.send(
                 "We're getting invalid response from the API, please try again later!"

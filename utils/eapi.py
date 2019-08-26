@@ -34,7 +34,7 @@ async def processapi(apilink):
                 raise InvalidHTTPResponse()
     if not datajson:
         print("Result Not Found")
-        raise ResultNotFound()
+        return ResultNotFound()
     print("Shuffling data from json")
     data = shuffle(datajson)
     print("Parsing data from json")

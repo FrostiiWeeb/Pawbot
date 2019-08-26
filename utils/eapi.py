@@ -74,7 +74,7 @@ async def processapi(apilink):
         processapi.imgid = str(imgid)
         processapi.file_link = str(fileurl).replace("None", "")
     except IndexError:
-        raise ResultNotFound()
+        return
 
 
 async def processshowapi(apilink):

@@ -137,7 +137,7 @@ class Events(commands.Cog):
         elif isinstance(err, errors.CommandInvokeError):
             err = err.original
 
-            if err = eapi.ResultNotFound:
+            if err == eapi.ResultNotFound:
                 return await ctx.send("Nothing was found!")
 
             _traceback = traceback.format_tb(err.__traceback__)

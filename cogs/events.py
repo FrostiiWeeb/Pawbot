@@ -133,6 +133,9 @@ class Events(commands.Cog):
         if isinstance(err, (errors.BadArgument, errors.MissingRequiredArgument)):
             await send_cmd_help(ctx)
 
+        elif isinstance(err, ResultNotFound):
+            return await ctx.send("Nothing was found!")
+
         elif isinstance(err, errors.CommandInvokeError):
             err = err.original
 

@@ -59,27 +59,27 @@ class AdminPanel(commands.Cog):
             await self.bot.db.execute(query, ctx.guild.id, 0, 0, 1, 0, 0, 0)
             query = "SELECT * FROM adminpanel WHERE serverid = $1;"
             row = await self.bot.db.fetchrow(query, ctx.guild.id)
-        if row["embeds"] is 1:
+        if row["embeds"] == 1:
             embedscheck = "<:enabled:513831607355047964>"
         else:
             embedscheck = "<:disabled:513831606855794709>"
-        if row["joins"] is 1:
+        if row["joins"] == 1:
             joincheck = "<:enabled:513831607355047964>"
         else:
             joincheck = "<:disabled:513831606855794709>"
-        if row["leaves"] is 1:
+        if row["leaves"] == 1:
             leavecheck = "<:enabled:513831607355047964>"
         else:
             leavecheck = "<:disabled:513831606855794709>"
-        if row["nsfw"] is 1:
+        if row["nsfw"] == 1:
             nsfwcheck = "<:enabled:513831607355047964>"
         else:
             nsfwcheck = "<:disabled:513831606855794709>"
-        if row["automod"] is 1:
+        if row["automod"] == 1:
             automodcheck = "<:enabled:513831607355047964>"
         else:
             automodcheck = "<:disabled:513831606855794709>"
-        if row["modlog"] is 1:
+        if row["modlog"] == 1:
             modlogcheck = "<:enabled:513831607355047964>"
         else:
             modlogcheck = "<:disabled:513831606855794709>"
@@ -92,8 +92,8 @@ class AdminPanel(commands.Cog):
         embed.add_field(name="Automod", value=automodcheck, inline=True)
         embed.add_field(name="Modlog", value=modlogcheck, inline=True)
 
-        if row["automod"] is 1:
-            if automodrowcheck["autorole"] is 1:
+        if row["automod"] == 1:
+            if automodrowcheck["autorole"] == 1:
                 embed.add_field(
                     name="Autorole", value="<:enabled:513831607355047964>", inline=True
                 )
@@ -101,7 +101,7 @@ class AdminPanel(commands.Cog):
                 embed.add_field(
                     name="Autorole", value="<:disabled:513831606855794709>", inline=True
                 )
-            if automodrowcheck["adblock"] is 1:
+            if automodrowcheck["adblock"] == 1:
                 embed.add_field(
                     name="Adblock", value="<:enabled:513831607355047964>", inline=True
                 )
@@ -109,7 +109,7 @@ class AdminPanel(commands.Cog):
                 embed.add_field(
                     name="Adblock", value="<:disabled:513831606855794709>", inline=True
                 )
-            if automodrowcheck["lockdown"] is 1:
+            if automodrowcheck["lockdown"] == 1:
                 embed.add_field(
                     name="Lockdown", value="<:enabled:513831607355047964>", inline=True
                 )
@@ -117,7 +117,7 @@ class AdminPanel(commands.Cog):
                 embed.add_field(
                     name="Lockdown", value="<:disabled:513831606855794709>", inline=True
                 )
-            if automodrowcheck["antispam"] is 1:
+            if automodrowcheck["antispam"] == 1:
                 embed.add_field(
                     name="Antispam", value="<:enabled:513831607355047964>", inline=True
                 )
@@ -125,7 +125,7 @@ class AdminPanel(commands.Cog):
                 embed.add_field(
                     name="Antispam", value="<:disabled:513831606855794709>", inline=True
                 )
-            if automodrowcheck["ignorerole"] is 1:
+            if automodrowcheck["ignorerole"] == 1:
                 embed.add_field(
                     name="Ignore Role",
                     value="<:enabled:513831607355047964>",
@@ -137,7 +137,7 @@ class AdminPanel(commands.Cog):
                     value="<:disabled:513831606855794709>",
                     inline=True,
                 )
-            if automodrowcheck["actionlog"] is 1:
+            if automodrowcheck["actionlog"] == 1:
                 embed.add_field(
                     name="Actionlog", value="<:enabled:513831607355047964>", inline=True
                 )
@@ -147,7 +147,7 @@ class AdminPanel(commands.Cog):
                     value="<:disabled:513831606855794709>",
                     inline=True,
                 )
-        if row["joins"] is 1:
+        if row["joins"] == 1:
             guildjoinschannel = ctx.guild.get_channel(storerow["joinchan"])
             if guildjoinschannel is None:
                 pass
@@ -158,7 +158,7 @@ class AdminPanel(commands.Cog):
                     value=f"`{guildjoinsmsg}` in {guildjoinschannel.mention}",
                     inline=False,
                 )
-        if row["leaves"] is 1:
+        if row["leaves"] == 1:
             guildleaveschannel = ctx.guild.get_channel(storerow["leavechan"])
             if guildleaveschannel is None:
                 pass
@@ -169,7 +169,7 @@ class AdminPanel(commands.Cog):
                     value=f"`{guildleavesmsg}` in {guildleaveschannel.mention}",
                     inline=False,
                 )
-        if row["modlog"] is 1:
+        if row["modlog"] == 1:
             modlogchannel = ctx.guild.get_channel(storerow["modlogchan"])
             if modlogchannel is None:
                 pass
@@ -179,8 +179,8 @@ class AdminPanel(commands.Cog):
                     value=f"{modlogchannel.mention}",
                     inline=False,
                 )
-        if row["automod"] is 1:
-            if automodrowcheck["actionlog"] is 1:
+        if row["automod"] == 1:
+            if automodrowcheck["actionlog"] == 1:
                 actionlogchan = ctx.guild.get_channel(storerow["actionlogchan"])
                 if actionlogchan is None:
                     pass
@@ -190,7 +190,7 @@ class AdminPanel(commands.Cog):
                         value=f"{actionlogchan.mention}",
                         inline=False,
                     )
-            if automodrowcheck["autorole"] is 1:
+            if automodrowcheck["autorole"] == 1:
                 autorole = ctx.guild.get_role(storerow["autorolerole"])
                 if autorole is None:
                     pass
@@ -198,7 +198,7 @@ class AdminPanel(commands.Cog):
                     embed.add_field(
                         name="Auto Role-Role", value=f"{autorole.mention}", inline=False
                     )
-            if automodrowcheck["ignorerole"] is 1:
+            if automodrowcheck["ignorerole"] == 1:
                 ignorerole = ctx.guild.get_role(storerow["ignorerolerole"])
                 if ignorerole is None:
                     pass
@@ -229,7 +229,7 @@ class AdminPanel(commands.Cog):
     async def enable_embeds(self, ctx):
         """ Enables embeds on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT embeds FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -258,7 +258,7 @@ class AdminPanel(commands.Cog):
         if setjoinmsg is None:
             setjoinmsg = "Welcome $member$ to the server!"
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT joins FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -316,7 +316,7 @@ class AdminPanel(commands.Cog):
         if setleavemsg is None:
             setleavemsg = "$member$ left the server.."
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT leaves FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -370,7 +370,7 @@ class AdminPanel(commands.Cog):
     async def enable_nsfw(self, ctx):
         """ Enables NSFW on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT nsfw FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -393,7 +393,7 @@ class AdminPanel(commands.Cog):
     async def enable_automod(self, ctx):
         """ Enables Automoderator on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT automod FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -419,7 +419,7 @@ class AdminPanel(commands.Cog):
     async def enable_modlog(self, ctx, modlogchan: discord.TextChannel):
         """ Enables Moderation Logging on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT modlog FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -465,9 +465,9 @@ class AdminPanel(commands.Cog):
     async def enable_autorole(self, ctx, autoRoleRole: discord.Role):
         """ Enables Auto Role on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT autorole FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -539,9 +539,9 @@ class AdminPanel(commands.Cog):
     async def enable_adblock(self, ctx):
         """ Enables adblock on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT adblock FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -572,9 +572,9 @@ class AdminPanel(commands.Cog):
     async def enable_lockdown(self, ctx):
         """ Enables lockdown on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT lockdown FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -605,9 +605,9 @@ class AdminPanel(commands.Cog):
     async def enable_antispam(self, ctx):
         """ Enables antispam on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT antispam FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -638,9 +638,9 @@ class AdminPanel(commands.Cog):
     async def enable_ignorerole(self, ctx, ignoreRole: discord.Role):
         """ Enables perms bypass on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT ignorerole FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -712,9 +712,9 @@ class AdminPanel(commands.Cog):
     async def enable_actionlog(self, ctx, actionLogChan: discord.TextChannel):
         """ Enables Action Logging on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT actionlog FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -797,7 +797,7 @@ class AdminPanel(commands.Cog):
     async def disable_embeds(self, ctx):
         """ Disables embeds on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT embeds FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -822,7 +822,7 @@ class AdminPanel(commands.Cog):
     async def disable_joins(self, ctx):
         """ Disables join messages on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT joins FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -847,7 +847,7 @@ class AdminPanel(commands.Cog):
     async def disable_leaves(self, ctx):
         """ Disables leave messages on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT leaves FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -872,7 +872,7 @@ class AdminPanel(commands.Cog):
     async def disable_nsfw(self, ctx):
         """ Disables NSFW on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT nsfw FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -897,7 +897,7 @@ class AdminPanel(commands.Cog):
     async def disable_automod(self, ctx):
         """ Disables automoderator on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT automod FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -922,7 +922,7 @@ class AdminPanel(commands.Cog):
     async def disable_modlog(self, ctx):
         """ Disables Moderation Logging on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT modlog FROM adminpanel WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -947,9 +947,9 @@ class AdminPanel(commands.Cog):
     async def disable_autorole(self, ctx):
         """ Disables autorole on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT autorole FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -980,9 +980,9 @@ class AdminPanel(commands.Cog):
     async def disable_adblock(self, ctx):
         """ Disables adblock on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT adblock FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -1013,9 +1013,9 @@ class AdminPanel(commands.Cog):
     async def disable_lockdown(self, ctx):
         """ Disables Lockdown on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT lockdown FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -1046,9 +1046,9 @@ class AdminPanel(commands.Cog):
     async def disable_antispam(self, ctx):
         """ Disables antispam on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT antispam FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -1079,9 +1079,9 @@ class AdminPanel(commands.Cog):
     async def disable_ignorerole(self, ctx):
         """ Disables an Ignore Role on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT ignorerole FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:
@@ -1112,9 +1112,9 @@ class AdminPanel(commands.Cog):
     async def disable_actionlog(self, ctx):
         """ Disables actionlog on the server """
         rowcheck = await self.getserverstuff(ctx)
-        if rowcheck["automod"] is 0 or None:
+        if rowcheck["automod"] == 0 or None:
             return await ctx.send("Automod must be enabled first! ><")
-        if rowcheck["embeds"] is 0 or not permissions.can_embed(ctx):
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
             thequery = "SELECT actionlog FROM automod WHERE serverid = $1;"
             therow = await self.bot.db.fetchrow(thequery, ctx.guild.id)
             if therow is None:

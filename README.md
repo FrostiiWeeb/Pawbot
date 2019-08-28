@@ -14,11 +14,15 @@
 # PawBot
 #### This Project uses the rewrite version of [discord.py](https://github.com/Rapptz/discord.py/tree/rewrite) as well as [Python 3.7.1](https://www.python.org/downloads/release/python-371/) and [Posgresql 11](https://www.postgresql.org/) or higher. Please keep this in mind when using the bot.
 
+## Hosting
+Contact me on discord regarding hosting, if you need help.
+**Help will only be provided for vps (Virtual Private Servers), and not for Heroku**
+
 ## Acknowledgements
 Thanks to
 - [Yellowfin](https://github.com/SegmentationViolation) for hosting the bot on his server.
 
 ## Important Note on running
-If you have any issues when running the code, feel free to contact me @ Paws#0001 on Discord, or open an issue on the repo. Use my discord for more urgent issues.
+If you have any issues when running the code, feel free to contact me @ Paws#7605 on Discord, or open an issue on the repo. Use my discord for more urgent issues.
 
 Hope you enjoy :D

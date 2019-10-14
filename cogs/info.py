@@ -252,7 +252,7 @@ class Information(commands.Cog):
 
         embed.add_field(name="Guilds", value=len(self.bot.guilds))
         embed.add_field(name="Uptime", value=self.get_bot_uptime(brief=True))
-        embed.add_field(name="Owner", value="Paws#0001")
+        embed.add_field(name="Owner", value="Paws#7605")
         embed.set_footer(
             text="Made with discord.py", icon_url="http://i.imgur.com/5BFecvA.png"
         )

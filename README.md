@@ -12,7 +12,7 @@
 [![Discord Bots](https://discordbots.org/api/widget/status/460383314973556756.svg)](https://discordbots.org/bot/460383314973556756)
 
 # PawBot
-#### This Project uses the rewrite version of [discord.py](https://github.com/Rapptz/discord.py/tree/rewrite) as well as [Python 3.7.1](https://www.python.org/downloads/release/python-371/) and [Posgresql 11](https://www.postgresql.org/) or higher. Please keep this in mind when using the bot.
+#### This Project uses the rewrite version of [discord.py](https://github.com/Rapptz/discord.py/) as well as [Python 3.8.2](https://www.python.org/downloads/release/python-382/) and [Posgresql 12](https://www.postgresql.org/) or higher. Please keep this in mind when using the bot.
 
 ## Hosting
 Contact me on discord regarding hosting, if you need help.
@@ -20,5 +20,3 @@ Contact me on discord regarding hosting, if you need help.
 
 ## Important Note on running
 If you have any issues when running the code, feel free to contact me @ Paws#7605 on Discord, or open an issue on the repo. Use my discord for more urgent issues.
-
-Hope you enjoy :D

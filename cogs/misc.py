@@ -717,20 +717,20 @@ class Misc(commands.Cog):
         embed.set_image(url=r[endpoint])
         await ctx.send(embed=embed)
 
-    # @commands.command()
-    # @commands.guild_only()
-    # @commands.cooldown(rate=2, per=5.0, type=commands.BucketType.user)
-    # async def yt(self, ctx, *, video: str = None):
-    #     """Search a YouTube video"""
-    #     if video is None:
-    #         return await ctx.send("You need to add text to search something.")
-    #     results = await http.get(
-    #         f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={video}&maxResults=1&type=video&key={self.config.ytkey}",
-    #         res_method="json",
-    #         no_cache=True,
-    #     )
-    #     results = results["items"][0]["id"]["videoId"]
-    #     await ctx.send(f"http://www.youtube.com/watch?v={results}")
+    @commands.command()
+    @commands.guild_only()
+    @commands.cooldown(rate=2, per=5.0, type=commands.BucketType.user)
+    async def yt(self, ctx, *, video: str = None):
+        """Search a YouTube video"""
+        if video is None:
+            return await ctx.send("You need to add text to search something.")
+        results = await http.get(
+            f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={video}&maxResults=1&type=video&key={self.config.ytkey}",
+            res_method="json",
+            no_cache=True,
+        )
+        results = results["items"][0]["id"]["videoId"]
+        await ctx.send(f"http://www.youtube.com/watch?v={results}")
 
     @commands.command(aliases=["inspire"])
     @commands.guild_only()

@@ -24,12 +24,9 @@ class SnipeHistory(deque):
 
 async def send_cmd_help(ctx):
     if ctx.invoked_subcommand:
-        _help = await ctx.bot.formatter.format_help_for(ctx, ctx.invoked_subcommand)
+       await ctx.send_help(ctx.command)
     else:
-        _help = await ctx.bot.formatter.format_help_for(ctx, ctx.command)
-
-    for page in _help:
-        await ctx.send(page)
+        await ctx.send_help(ctx.command)
 
 
 class Events(commands.Cog):
@@ -145,7 +142,7 @@ class Events(commands.Cog):
             error = "```py\n{2}{0}: {3}\n```".format(
                 type(err).__name__, ctx.message.content, _traceback, err
             )
-            logchannel = self.bot.get_channel(508_420_200_815_656_966)
+            logchannel = self.bot.get_channel(717099753879633931)
             await ctx.send(
                 "There was an error in processing the command, our staff team have been notified, and will be in contact soon."
             )
@@ -430,7 +427,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
-        logchan = self.bot.get_channel(508_420_200_815_656_966)
+        logchan = self.bot.get_channel(717837503280840725)
         now = datetime.utcnow()
         cmdmsg = await logchan.send(
             f'`[INFO]` `Command Run`\n```\nCommand: {ctx.command}\nUser: {ctx.author} ({ctx.author.id})\nChannel: {ctx.channel} ({ctx.channel.id})\n\nPerformed at: {now.strftime("%c")}```'

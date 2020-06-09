@@ -220,10 +220,7 @@ class AdminPanel(commands.Cog):
     async def enable(self, ctx):
         """ Enables different modules """
         if ctx.invoked_subcommand is None:
-            _help = await ctx.bot.formatter.format_help_for(ctx, ctx.command)
-
-            for page in _help:
-                await ctx.send(page)
+            await ctx.send_help(ctx.command)
 
     @enable.command(name="embeds", hidden=True)
     async def enable_embeds(self, ctx):
@@ -788,10 +785,7 @@ class AdminPanel(commands.Cog):
     async def disable(self, ctx):
         """ Disables different modules """
         if ctx.invoked_subcommand is None:
-            _help = await ctx.bot.formatter.format_help_for(ctx, ctx.command)
-
-            for page in _help:
-                await ctx.send(page)
+            await ctx.send_help(ctx.command)
 
     @disable.command(name="embeds", hidden=True)
     async def disable_embeds(self, ctx):

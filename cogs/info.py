@@ -463,36 +463,10 @@ class Information(commands.Cog):
                 await webhook.close()
             except ValueError as e:
                 await ctx.send("uhm.. something went wrong, try again later..")
-                logchannel = self.bot.get_channel(508_420_200_815_656_966)
+                logchannel = self.bot.get_channel(717099753879633931)
                 return await logchannel.send(
                     f"`ERROR`\n```py\n{e}\n```\nRoot server: {ctx.guild.name} ({ctx.guild.id})\nRoot user: {ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id})"
                 )
-
-    @commands.command()
-    @commands.cooldown(rate=1, per=500.0, type=commands.BucketType.user)
-    async def customlink(self, ctx, invsuffix: str, invlink: str):
-        """ Request a custom discord invite """
-        webhook = Webhook(self.config.customlinkwebhook, is_async=True)
-        color = ctx.author.color
-        footer = f"Sent from {ctx.guild.name}"
-        guild_pic = ctx.guild.icon_url
-        embed = dhooks.Embed(
-            description=f"Requested suffix: {invsuffix}\nInvite link: {invlink}",
-            colour=color,
-            timestamp=True,
-        )
-        embed.set_author(name=f"From {ctx.author}", icon_url=ctx.author.avatar_url)
-        embed.set_footer(text=footer, icon_url=guild_pic)
-        try:
-            await ctx.send("Alright, I sent your request!!")
-            await webhook.send(embeds=embed)
-            await webhook.close()
-        except ValueError as e:
-            await ctx.send("uhm.. something went wrong, try again later..")
-            logchannel = self.bot.get_channel(508_420_200_815_656_966)
-            return await logchannel.send(
-                f"`ERROR`\n```py\n{e}\n```\nRoot server: {ctx.guild.name} ({ctx.guild.id})\nRoot user: {ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id})"
-            )
 
     @commands.command()
     async def args(self, ctx, *args):

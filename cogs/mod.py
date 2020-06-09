@@ -392,10 +392,7 @@ class Moderation(commands.Cog):
     async def find(self, ctx):
         """ Finds a user within your search term """
         if ctx.invoked_subcommand is None:
-            _help = await ctx.bot.formatter.format_help_for(ctx, ctx.command)
-
-            for page in _help:
-                await ctx.send(page)
+            await ctx.send_help(ctx.command)
 
     @find.command(name="playing")
     async def find_playing(self, ctx, *, search: str):
@@ -446,10 +443,7 @@ class Moderation(commands.Cog):
         """ Removes messages from the current server. """
 
         if ctx.invoked_subcommand is None:
-            _help = await ctx.bot.formatter.format_help_for(ctx, ctx.command)
-
-            for page in _help:
-                await ctx.send(page)
+            await ctx.send_help(ctx.command)
 
     async def do_removal(
         self, ctx, limit, predicate, *, before=None, after=None, message=True

@@ -113,14 +113,14 @@ class Admin(commands.Cog):
             self.bot.unload_extension(f"cogs.{name}")
             self.bot.load_extension(f"cogs.{name}")
         except ModuleNotFoundError as e:
-            logchannel = self.bot.get_channel(508_420_200_815_656_966)
+            logchannel = self.bot.get_channel(717099753879633931)
             await logchannel.send(f"`[WARN]` `Command Error`\n```py\n{e}\n```")
             await ctx.message.remove_reaction(
                 "a:loading:528744937794043934", member=ctx.me
             )
             return await ctx.message.add_reaction(":notdone:528747883571445801")
         except SyntaxError as e:
-            logchannel = self.bot.get_channel(508_420_200_815_656_966)
+            logchannel = self.bot.get_channel(717099753879633931)
             await logchannel.send(f"`[WARN]` `Command Error`\n```py\n{e}\n```")
             await ctx.message.remove_reaction(
                 "a:loading:528744937794043934", member=ctx.me
@@ -145,14 +145,14 @@ class Admin(commands.Cog):
         try:
             self.bot.load_extension(f"cogs.{name}")
         except ModuleNotFoundError as e:
-            logchannel = self.bot.get_channel(508_420_200_815_656_966)
+            logchannel = self.bot.get_channel(717099753879633931)
             await logchannel.send(f"`[WARN]` `Command Error`\n```py\n{e}\n```")
             await ctx.message.remove_reaction(
                 "a:loading:528744937794043934", member=ctx.me
             )
             return await ctx.message.add_reaction(":notdone:528747883571445801")
         except SyntaxError as e:
-            logchannel = self.bot.get_channel(508_420_200_815_656_966)
+            logchannel = self.bot.get_channel(717099753879633931)
             await logchannel.send(f"`[WARN]` `Command Error`\n```py\n{e}\n```")
             await ctx.message.remove_reaction(
                 "a:loading:528744937794043934", member=ctx.me
@@ -169,14 +169,14 @@ class Admin(commands.Cog):
         try:
             self.bot.unload_extension(f"cogs.{name}")
         except ModuleNotFoundError as e:
-            logchannel = self.bot.get_channel(508_420_200_815_656_966)
+            logchannel = self.bot.get_channel(717099753879633931)
             await logchannel.send(f"`[WARN]` `Command Error`\n```py\n{e}\n```")
             await ctx.message.remove_reaction(
                 "a:loading:528744937794043934", member=ctx.me
             )
             return await ctx.message.add_reaction(":notdone:528747883571445801")
         except SyntaxError as e:
-            logchannel = self.bot.get_channel(508_420_200_815_656_966)
+            logchannel = self.bot.get_channel(717099753879633931)
             await logchannel.send(f"`[WARN]` `Command Error`\n```py\n{e}\n```")
             await ctx.message.remove_reaction(
                 "a:loading:528744937794043934", member=ctx.me
@@ -189,10 +189,7 @@ class Admin(commands.Cog):
     @commands.check(repo.is_owner)
     async def change(self, ctx):
         if ctx.invoked_subcommand is None:
-            _help = await ctx.bot.formatter.format_help_for(ctx, ctx.command)
-
-            for page in _help:
-                await ctx.send(page)
+            await ctx.send("paw change <playing|username|nickname|avatar>")
 
     @change.command(name="playing", hidden=True)
     @commands.check(repo.is_owner)
@@ -255,12 +252,14 @@ class Admin(commands.Cog):
 
     @commands.command(hidden=True)
     @commands.check(repo.is_owner)
-    async def steal(self, ctx, emojiname, url: str = None):
+    async def steal(self, ctx, emojiname: str = None, *, url: str = None):
         """Steals emojis"""
         if emojiname is None or "http" in emojiname:
             return await ctx.send("No emoji name provided")
         if url is None and len(ctx.message.attachments) == 1:
             url = ctx.message.attachments[0].url
+        if url is None:
+            return
         else:
             url = url.strip("<>")
 
@@ -458,10 +457,7 @@ class Admin(commands.Cog):
     async def uplink(self, ctx):
         """ Relay messages between current and target channel """
         if ctx.invoked_subcommand is None:
-            _help = await ctx.bot.formatter.format_help_for(ctx, ctx.command)
-
-            for page in _help:
-                await ctx.send(page)
+            await ctx.send_help(ctx.command)
 
     @uplink.command(name="-o", hidden=True)
     @commands.check(repo.is_owner)
@@ -513,14 +509,9 @@ class Admin(commands.Cog):
     @commands.command(hidden=True)
     @commands.check(repo.is_owner)
     async def cleanup(self, ctx, search=100):
-        await ctx.message.add_reaction("a:loading:528744937794043934")
-
         def predicate(m):
             return m.author == ctx.me
-
         await self.do_removal(ctx, search, predicate)
-        await ctx.message.remove_reaction("a:loading:528744937794043934", member=ctx.me)
-        await ctx.message.add_reaction(":done:513831607262511124")
 
     @commands.command(hidden=True)
     @commands.check(repo.is_owner)
@@ -603,6 +594,17 @@ class Admin(commands.Cog):
         del gc.garbage[:]
         await ctx.message.remove_reaction("a:loading:528744937794043934", member=ctx.me)
         await ctx.message.add_reaction(":done:513831607262511124")
+
+    @commands.command(hidden=True)
+    @commands.guild_only()
+    @commands.check(repo.is_owner)
+    async def guildlist(self, ctx):
+        guildlist = []
+        out_filename = "death.json"
+        for guild in self.bot.guilds:
+            guildlist.append(f"{guild.id} Owner: {guild.owner.name}#{guild.owner.discriminator} ID {guild.owner_id}")
+        with open(out_filename, 'w') as outf:
+            json.dump(guildlist, outf)
 
 
 def setup(bot):

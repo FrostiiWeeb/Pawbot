@@ -39,10 +39,7 @@ class Economy(commands.Cog):
     async def bank(self, ctx):
         """ Manage your money! """
         if ctx.invoked_subcommand is None:
-            _help = await ctx.bot.formatter.format_help_for(ctx, ctx.command)
-
-            for page in _help:
-                await ctx.send(page)
+            await ctx.send_help(ctx.command)
 
     @bank.command()
     async def bal(self, ctx, user: discord.Member = None):

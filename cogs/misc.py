@@ -192,38 +192,6 @@ class Misc(commands.Cog):
 
     @commands.command()
     @commands.cooldown(rate=1, per=5.0, type=commands.BucketType.user)
-    async def e926(self, ctx, *args):
-        """ Searches e926 with given tags. """
-        msgtoedit = await ctx.send("Searching...")
-        args = " ".join(args)
-        args = str(args)
-        print("------")
-        print("Got command with args: " + args)
-        if "order:score_asc" in args:
-            await ctx.send("I'm not going to fall into that one, silly~")
-            return
-        if "score:" in args:
-            apilink = f"https://e926.net/post/index.json?tags={args}&limit=320"
-        else:
-            apilink = (
-                f"https://e926.net/post/index.json?tags={args}&score:>25&limit=320"
-            )
-        try:
-            await eapi.processapi(apilink)
-        except eapi.ResultNotFound:
-            await ctx.send("Result not found!")
-            return
-        except InvalidHTTPResponse:
-            await ctx.send(
-                "We're getting invalid response from the API, please try again later!"
-            )
-            return
-        msgtoedit = await ctx.channel.get_message(msgtoedit.id)
-        msgtosend = f"Post link: `https://e926.net/post/show/{eapi.processapi.imgid}/`\r\nArtist: `{eapi.processapi.imgartist}`\r\nSource: `{eapi.processapi.imgsource}`\r\nRating: `{eapi.processapi.imgrating}`\r\nTags: `{eapi.processapi.imgtags}` ...and more\r\nImage link: {eapi.processapi.file_link}"
-        await msgtoedit.edit(content=msgtosend)
-
-    @commands.command()
-    @commands.cooldown(rate=1, per=5.0, type=commands.BucketType.user)
     async def yell(self, ctx, *, text: str):
         """ AAAAAAAAA! """
         t_upper = text.upper().replace("@", "@\u200B").replace("&", "&\u200B")
@@ -748,17 +716,6 @@ class Misc(commands.Cog):
         embed.set_image(url=page)
         await ctx.send(embed=embed)
 
-    @commands.command()
-    @commands.guild_only()
-    @commands.cooldown(rate=2, per=5.0, type=commands.BucketType.user)
-    async def spoiler(self, ctx, *, spoilertext: str):
-        await ctx.message.delete()
-        file = BytesIO(spoilertext.encode("utf-8"))
-        await ctx.send(
-            content=f"**{ctx.author}** has made a spoiler!",
-            file=discord.File(file, filename="spoiler.txt"),
-        )
-
     @commands.command(aliases=["t"])
     @commands.guild_only()
     async def tag(self, ctx, *, tagname: str):
@@ -848,108 +805,9 @@ class Misc(commands.Cog):
         self.bot.loop.create_task(pagey.paginate(ctx))
 
     @commands.command()
-    @commands.guild_only()
-    @commands.cooldown(rate=1, per=5.0, type=commands.BucketType.user)
-    async def card(self, ctx, *, name):
-        """ Searches for a Hearthstone card """
-        msg = await ctx.send("I'm looking for that card...")
-
-        r = requests.get(
-            f"https://omgvamp-hearthstone-v1.p.mashape.com/cards/{name}?collectible=1",
-            headers={
-                "X-Mashape-Key": "sly1A6Ur3tmshrDtRbWe4q738Afxp1cnkhajsnWqVf9HMJ7ZOJ"
-            },
-        )
-
-        if r.status_code == 404:
-            return await msg.edit(content=f"Card {name} not found.")
-        await msg.edit(
-            content="",
-            embed=discord.Embed(
-                title=name, description=r.json()[0]["flavor"], color=249_742
-            ).set_image(url=r.json()[0]["img"]),
-        )
-
-    @commands.command()
-    @commands.guild_only()
-    @commands.cooldown(rate=1, per=5.0, type=commands.BucketType.user)
-    async def gcard(self, ctx, *, name):
-        """ Searches for a gold Hearthstone card """
-
-        msg = await ctx.send("I'm looking for that card...")
-
-        r = requests.get(
-            f"https://omgvamp-hearthstone-v1.p.mashape.com/cards/{name}?collectible=1",
-            headers={
-                "X-Mashape-Key": "sly1A6Ur3tmshrDtRbWe4q738Afxp1cnkhajsnWqVf9HMJ7ZOJ"
-            },
-        )
-
-        if r.status_code == 404:
-            return await msg.edit(content=f"Card {name} not found.")
-        await msg.edit(
-            content="",
-            embed=discord.Embed(
-                title=name, description=r.json()[0]["flavor"], color=249_742
-            ).set_image(url=r.json()[0]["imgGold"]),
-        )
-
-    @commands.command()
     async def hello(self, ctx):
         """ Hi """
         await ctx.send(f"Hello {ctx.author.name}! ^-^")
-
-    @commands.command(pass_context=True)
-    async def villager(self, ctx, villager):
-        """ Returns info on a villager from animal crossing """
-        description = "Villager info for " + villager
-        data = discord.Embed(colour=0x67AC42)
-        data.set_author(name=description, icon_url="https://i.imgur.com/ef8GJOL.png")
-        attributes = [
-            "species",
-            "gender",
-            "personality",
-            "birthday",
-            "clothes",
-            "starsign",
-            "phrase",
-            "song",
-        ]
-
-        page = requests.get("https://nookipedia.com/wiki/" + villager)
-
-        if page.status_code == 404:
-            data.add_field(name="Error", value="Villager does not exist!")
-        else:
-            tree = html.fromstring(page.content)
-
-            for att in attributes:
-                villid = str("Infobox-villager-" + att)
-                temp = str(tree.xpath('//td[@id="' + villid + '"]//text()'))
-                if len(temp) > 2:
-                    if att == "clothes":
-                        temp = temp.replace("', '*', '", "\n")
-                    temp = (
-                        temp.replace("['", "")
-                        .replace("']", "")
-                        .replace("*", "")
-                        .replace("', '", "")
-                    )  # Remove list notation surrounding data
-                    temp = temp[
-                        :-2
-                    ]  # Remove trailing '\n' at the end of each string; for some reason, .replace or .rstrip doesn't work
-                    if att == "phrase":
-                        temp = re.sub(
-                            r"\([^)]*\)", "", temp
-                        )  # Remove sets of parenthese and their contents (in this case, language indications: (EN), (JP), etc.)
-                        temp = re.sub(
-                            "[^a-zA-Z]", "", temp
-                        )  # Remove any non-English alphabet characters (in this case, Japanese)
-                    data.add_field(name=att.capitalize(), value=temp)
-                else:
-                    temp = "N/A"
-                    data.add_field(name=att.capitalize(), value=temp)
-        await ctx.send(embed=data)
 
 
 def setup(bot):

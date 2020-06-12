@@ -245,7 +245,7 @@ class Economy(commands.Cog):
                 multiplier = 10
         else:
             multiplier = 0
-        msg = await ctx.channel.get_message(msg.id)
+        msg = await ctx.channel.fetch_message(msg.id)
         await msg.edit(
             content=f"{msg.content}\nAnd you got a multiplier of {multiplier}!"
         )

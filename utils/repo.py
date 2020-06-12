@@ -1,7 +1,7 @@
 from utils import default
 
 version = "v1.3.0"
-invite = "https://discord.gg/s4bSSCG"
+invite = "https://discord.gg/AFkKbFk"
 owners = default.get("config.json").owners
 contributors = default.get("config.json").contributors
 beta = default.get("config.json").beta

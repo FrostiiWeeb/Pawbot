@@ -186,7 +186,7 @@ class Information(commands.Cog):
         """ Get an invite to our support server! """
         if (
             isinstance(ctx.channel, discord.DMChannel)
-            or ctx.guild.id != 508_396_955_660_189_715
+            or ctx.guild.id != 711685458714689616
         ):
             return await ctx.send(
                 f"**{ctx.author.name}**, you can join here! 🍻\n<{repo.invite}>"
@@ -418,7 +418,7 @@ class Information(commands.Cog):
         await pollmsg.add_reaction("👍")
         await pollmsg.add_reaction("👎")
         await asyncio.sleep(time)
-        reactiongrab = await ctx.channel.get_message(pollmsg.id)
+        reactiongrab = await ctx.channel.fetch_message(pollmsg.id)
         for reaction in reactiongrab.reactions:
             if reaction.emoji == str("👍"):
                 upvote_count = reaction.count
@@ -427,46 +427,10 @@ class Information(commands.Cog):
                     downvote_count = reaction.count
                 else:
                     pass
+        await pollmsg.clear_reactions()
         await pollmsg.edit(
             content=f"{ctx.message.author.mention} created a poll that will end after {time} seconds!\n**{question}**\n\nTime's up!\n👍 = {upvote_count-1}\n\n👎 = {downvote_count-1}"
         )
-
-    @commands.command()
-    @commands.cooldown(rate=1, per=5.0, type=commands.BucketType.user)
-    async def suggest(self, ctx, *, suggestion_txt: str):
-        """ Send a suggestion to my owner or just tell her shes doing a bad job """
-        webhook = Webhook(self.config.suggwebhook, is_async=True)
-        suggestion = suggestion_txt
-        if ctx.guild:
-            color = ctx.author.color
-            footer = f"Sent from {ctx.guild.name}"
-            guild_pic = ctx.guild.icon_url
-        else:
-            color = 0x254D16
-            footer = "Sent from DMs"
-            guild_pic = ""
-        if len(suggestion) > 1500:
-            await ctx.send(
-                f"{ctx.author.mention} thats a bit too long for me to send. Shorten it and try again. (1500 character limit)"
-            )
-        else:
-            suggestionem = dhooks.Embed(
-                description=f"{suggestion}", colour=color, timestamp=True
-            )
-            suggestionem.set_author(
-                name=f"From {ctx.author}", icon_url=ctx.author.avatar_url
-            )
-            suggestionem.set_footer(text=footer, icon_url=guild_pic)
-            try:
-                await ctx.send("Alright, I sent your suggestion!!")
-                await webhook.send(embeds=suggestionem)
-                await webhook.close()
-            except ValueError as e:
-                await ctx.send("uhm.. something went wrong, try again later..")
-                logchannel = self.bot.get_channel(717099753879633931)
-                return await logchannel.send(
-                    f"`ERROR`\n```py\n{e}\n```\nRoot server: {ctx.guild.name} ({ctx.guild.id})\nRoot user: {ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id})"
-                )
 
     @commands.command()
     async def args(self, ctx, *args):
@@ -504,11 +468,11 @@ class Information(commands.Cog):
     @commands.command()
     async def jumbo(self, ctx, emoji: discord.PartialEmoji):
         """ Makes your emoji  B I G """
-
         def url_to_bytes(url):
             data = requests.get(url)
             content = io.BytesIO(data.content)
-            filename = url.rsplit("/", 1)[-1]
+            tempurl = str(url)
+            filename = tempurl.rsplit("/", 1)[-1]
             return {"content": content, "filename": filename}
 
         file = url_to_bytes(emoji.url)
@@ -532,7 +496,7 @@ class Information(commands.Cog):
     async def calc(self, ctx, *, calculation: str):
         """ Performs a calculation """
         r = requests.get(
-            f"https://www.calcatraz.com/calculator/api?c={quote(calculation)}"
+            f"http://api.mathjs.org/v4/?expr={quote(calculation)}"
         )
         await ctx.send(r.text)
 

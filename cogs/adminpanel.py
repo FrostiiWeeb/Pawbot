@@ -43,7 +43,7 @@ class AdminPanel(commands.Cog):
             storerow = await self.bot.db.fetchrow(query, ctx.guild.id)
         return storerow
 
-    @commands.command(aliases=["adminpanel", "botconfig"])
+    @commands.command(aliases=["adminpanel", "botconfig", "config"])
     @commands.guild_only()
     @permissions.has_permissions(manage_guild=True)
     async def conf(self, ctx):

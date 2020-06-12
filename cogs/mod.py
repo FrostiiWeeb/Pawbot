@@ -110,12 +110,12 @@ class Moderation(commands.Cog):
             "UPDATE modlogs SET moderator = $1 WHERE serverid = $2 AND casenumber = $3;"
         )
         await self.bot.db.execute(query, ctx.author.id, ctx.guild.id, case)
-        target = await self.bot.get_user_info(row["target"])
+        target = await self.bot.fetch_user(row["target"])
         moderator = ctx.author
         logchannel = await self.getmodlogstuff(ctx)
         logchannel = ctx.guild.get_channel(logchannel["modlogchan"])
         try:
-            msgtoedit = await logchannel.get_message(row["caseid"])
+            msgtoedit = await logchannel.fetch_message(row["caseid"])
             await msgtoedit.edit(
                 content=f"**{row['casetype']}** | Case {row['casenumber']}\n**User**: {target} ({target.id}) ({target.mention})\n**Reason**: {reason}\n**Responsible Moderator**: {moderator}"
             )
@@ -170,7 +170,7 @@ class Moderation(commands.Cog):
                     await member.kick()
                 except discord.Forbidden:
                     pass
-            if amountgiven == 5:
+            if amountgiven >= 5:
                 try:
                     await member.ban()
                 except discord.Forbidden:
@@ -619,7 +619,7 @@ class Moderation(commands.Cog):
     @commands.cooldown(rate=2, per=3.5, type=commands.BucketType.user)
     async def move(self, ctx, msgid: int, channel: discord.TextChannel):
         """ Moves a message id to another channel. """
-        msgtodel = await ctx.channel.get_message(msgid)
+        msgtodel = await ctx.channel.fetch_message(msgid)
         if msgtodel.attachments:
             iobytes = BytesIO()
             await msgtodel.attachments[0].save(iobytes)

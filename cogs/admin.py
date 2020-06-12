@@ -260,8 +260,7 @@ class Admin(commands.Cog):
             url = ctx.message.attachments[0].url
         if url is None:
             return
-        else:
-            url = url.strip("<>")
+        url = url.strip("<>")
 
         try:
             botguild = self.bot.get_guild(423_879_867_457_863_680)

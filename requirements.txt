@@ -10,3 +10,4 @@ asyncio
 yarl
 art
 lxml
+lark-parser

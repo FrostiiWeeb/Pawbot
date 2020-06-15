@@ -16,6 +16,3 @@
 
 ## Hosting
 If you wish to host the bot, you're on your own for support unfortunately. I try to keep the code updated, but it is mostly to keep the project open sourced, so people know whats going on in the back end. Its not designed for anyone else to run.
-
-## Important Note on running
-If you have any issues when running the code, feel free to contact me @ Paws#7605 on Discord, or open an issue on the repo. Use my discord for more urgent issues.

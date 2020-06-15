@@ -3,13 +3,7 @@ import discord
 import json
 
 from discord.ext import commands
-from utils import http, default, sfapi, eapi, permissions
-
-bannedtags = ["loli", "shota"]
-
-processapi = eapi.processapi
-processshowapi = eapi.processshowapi
-search = sfapi.search
+from utils import http, default, permissions
 
 
 class NSFW(commands.Cog):

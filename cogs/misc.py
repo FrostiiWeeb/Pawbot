@@ -10,11 +10,7 @@ from art import text2art
 from io import BytesIO
 from random import randint
 from discord.ext import commands
-from utils import lists, http, default, eapi, sfapi, permissions, pawgenator
-
-processapi = eapi.processapi
-processshowapi = eapi.processshowapi
-search = sfapi.search
+from utils import lists, http, default, permissions, pawgenator
 
 
 class InvalidHTTPResponse(Exception):
@@ -808,6 +804,21 @@ class Misc(commands.Cog):
     async def hello(self, ctx):
         """ Hi """
         await ctx.send(f"Hello {ctx.author.name}! ^-^")
+
+    @commands.command()
+    async def fursona(self, ctx):
+        """Send AI generated image from thisfursonadoesnotexist.com"""
+        rowcheck = await self.getserverstuff(ctx)
+
+        seed = random.randint(10000, 99999)
+
+        if rowcheck["embeds"] == 0 or not permissions.can_embed(ctx):
+            return await ctx.send(f"https://thisfursonadoesnotexist.com/v2/jpgs-2x/seed{seed}.jpg")
+
+        url = f'https://thisfursonadoesnotexist.com/v2/jpgs-2x/seed{seed}.jpg'
+        await ctx.send(
+            embed=discord.Embed(color=249_742).set_image(url=url).set_footer(text=f"seed: {seed}")
+        )
 
 
 def setup(bot):

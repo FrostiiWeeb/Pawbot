@@ -4,7 +4,6 @@ import traceback
 import psutil
 import os
 import random
-from utils import eapi
 
 from datetime import datetime
 from collections import deque
@@ -133,9 +132,6 @@ class Events(commands.Cog):
 
         elif isinstance(err, errors.CommandInvokeError):
             err = err.original
-
-            if err == eapi.ResultNotFound:
-                return await ctx.send("Nothing was found!")
 
             _traceback = traceback.format_tb(err.__traceback__)
             _traceback = "".join(_traceback)

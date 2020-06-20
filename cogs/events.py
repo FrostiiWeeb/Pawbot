@@ -188,10 +188,6 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        if not guild.icon_url:
-            guildicon = "https://cdn.discordapp.com/attachments/443347566231289856/513380120451350541/2mt196.jpg"
-        else:
-            guildicon = guild.icon_url
         findbots = sum(1 for member in guild.members if member.bot)
         findusers = sum(1 for member in guild.members if not member.bot)
         webhook = Webhook(self.config.guildjoinwebhook, is_async=True)
@@ -200,23 +196,17 @@ class Events(commands.Cog):
         )
         embed.set_author(
             name=f"{guild.name}",
-            url="https://discordapp.com/oauth2/authorize?client_id=460383314973556756&scope=bot&permissions=469888118",
-            icon_url=guildicon,
+            url="https://discordapp.com/oauth2/authorize?client_id=460383314973556756&scope=bot&permissions=469888118"
         )
-        embed.set_thumbnail(url=guildicon)
         embed.add_field(
             name="Info",
-            value=f"New guild count: **{len(self.bot.guilds)}**\nOwner: **{guild.owner}**\nUsers/Bot Ratio: **{findusers}/{findbots}**",
+            value=f"New `guild` count: **{len(self.bot.guilds)}**\nOwner: **{guild.owner}**\nUsers/Bot Ratio: **{findusers}/{findbots}**",
         )
-        await webhook.execute(embeds=embed, username=guild.name, avatar_url=guildicon)
+        await webhook.execute(embeds=embed, username=guild.name)
         await webhook.close()
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        if not guild.icon_url:
-            guildicon = "https://cdn.discordapp.com/attachments/443347566231289856/513380120451350541/2mt196.jpg"
-        else:
-            guildicon = guild.icon_url
         findbots = sum(1 for member in guild.members if member.bot)
         findusers = sum(1 for member in guild.members if not member.bot)
         webhook = Webhook(self.config.guildleavewebhook, is_async=True)
@@ -225,15 +215,13 @@ class Events(commands.Cog):
         )
         embed.set_author(
             name=f"{guild.name}",
-            url="https://discordapp.com/oauth2/authorize?client_id=460383314973556756&scope=bot&permissions=469888118",
-            icon_url=guildicon,
+            url="https://discordapp.com/oauth2/authorize?client_id=460383314973556756&scope=bot&permissions=469888118"
         )
-        embed.set_thumbnail(url=guildicon)
         embed.add_field(
             name="Info",
             value=f"New guild count: **{len(self.bot.guilds)}**\nOwner: **{guild.owner}**\nUsers/Bot Ratio: **{findusers}/{findbots}**",
         )
-        await webhook.execute(embeds=embed, username=guild.name, avatar_url=guildicon)
+        await webhook.execute(embeds=embed, username=guild.name)
         await webhook.close()
 
     @commands.Cog.listener()

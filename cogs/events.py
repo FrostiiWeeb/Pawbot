@@ -248,7 +248,7 @@ class Events(commands.Cog):
                 welcomechannel = member.guild.get_channel(serverstorecheck["joinchan"])
                 welcomemsg = (
                     serverstorecheck["joinmsg"]
-                    .replace("%member%", f"{member.name}#{member.discriminator}")
+                    .replace("$member$", f"{member.name}#{member.discriminator}")
                     .replace(
                         "Default",
                         f"Please welcome **{member.name}#{member.discriminator}!**",
@@ -267,7 +267,7 @@ class Events(commands.Cog):
                 byechan = member.guild.get_channel(serverstorecheck["leavechan"])
                 byemsg = (
                     serverstorecheck["leavemsg"]
-                    .replace("%member%", f"{member.name}#{member.discriminator}")
+                    .replace("$member$", f"{member.name}#{member.discriminator}")
                     .replace(
                         "Default",
                         f"Goodbye **{member.name}#{member.discriminator}** we'll miss you...",
